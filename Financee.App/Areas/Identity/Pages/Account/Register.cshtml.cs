@@ -41,9 +41,9 @@ namespace Financee.App.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "Потребителско име")]
-            [StringLength(100, ErrorMessage = "Потребителското име трябва да е с дължина поне {2} и най-много {1} символа.",
+            [StringLength(100, ErrorMessage = "Потребителското име трябва да е с дължина поне {2} и най-много {1} символа",
                 MinimumLength = 3)]
-            public string Username { get; set; }
+            public string Nickname { get; set; }
 
             [Required]
             [EmailAddress(ErrorMessage = "Това не е валиден имейл адрес")]
@@ -51,7 +51,7 @@ namespace Financee.App.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "{0}то име трябва да е с дължина поне {2} и най-много {1} символа.",
+            [StringLength(100, ErrorMessage = "{0}та трябва да е с дължина поне {2} и най-много {1} символа",
                 MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
@@ -59,7 +59,7 @@ namespace Financee.App.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Повтори паролата")]
-            [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат")]
             public string ConfirmPassword { get; set; }
         }
 

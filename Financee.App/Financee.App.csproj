@@ -18,4 +18,11 @@
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Financee.Data\Financee.Data.csproj" />
+    <ProjectReference Include="..\Financee.Models\Financee.Models.csproj" />
+    <ProjectReference Include="..\Financee.Services\Financee.Services.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,12 +6,11 @@ namespace Financee.Models
     {
         public long Id { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public decimal Money { get; set; }
 
         public string OwnerId { get; set; }
-        public Identit
-        //public IDentityUser Owner { get; set; }
+        public FinanceeUser Owner { get; set; }
     }
 }

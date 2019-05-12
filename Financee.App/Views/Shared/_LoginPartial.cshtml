@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -10,17 +10,17 @@
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-light">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link text-light">Излез</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus"></i> Register</a>
+        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user-plus"></i> Регистрирай се</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in-alt"></i> Login</a>
+        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in-alt"></i> Влез</a>
     </li>
 }
 </ul>

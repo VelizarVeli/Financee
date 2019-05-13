@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Financee.Data
 {
-    public class FinanceeDbContext : IdentityDbContext<FinanceeUser>
+    public class FinanceeDbContext : IdentityDbContext
     {
         public FinanceeDbContext(DbContextOptions<FinanceeDbContext> options)
             : base(options)

@@ -11,6 +11,5 @@ namespace Financee.Models
         public decimal Money { get; set; }
 
         public string OwnerId { get; set; }
-        public FinanceeUser Owner { get; set; }
     }
 }

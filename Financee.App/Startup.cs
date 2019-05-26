@@ -1,4 +1,5 @@
 ﻿using System;
+using Financee.App.Utilities;
 using Financee.Data;
 using Financee.Models;
 using Financee.Services;
@@ -66,7 +67,7 @@ namespace Financee.App
                 app.UseHsts();
             }
 
-            //RoleSeeder.Seed(serviceProvider);
+            RoleSeeder.Seed(serviceProvider);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

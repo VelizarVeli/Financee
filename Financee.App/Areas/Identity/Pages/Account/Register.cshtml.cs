@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Financee.Models;
@@ -76,6 +77,14 @@ namespace Financee.App.Areas.Identity.Pages.Account
             {
                 var user = new FinanceeUser { UserName = Input.Nickname, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                if (this._signInManager.UserManager.Users.Count() == 1)
+                {
+                    var roleResult = this._signInManager.UserManager.AddToRoleAsync(user, "Admin").Result;
+                }
+                else
+                {
+                    var roleResult = this._signInManager.UserManager.AddToRoleAsync(user, "User").Result;
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

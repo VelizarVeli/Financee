@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financee.App", "Financee.App\Financee.App.csproj", "{1BC72C07-AE13-4364-BAC6-326A83C02FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financee.App", "Financee.App\Financee.App.csproj", "{1BC72C07-AE13-4364-BAC6-326A83C02FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financee.Models", "Financee.Models\Financee.Models.csproj", "{11AF8AA9-27A1-4D19-85DC-FFEBD44A0581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financee.Models", "Financee.Models\Financee.Models.csproj", "{11AF8AA9-27A1-4D19-85DC-FFEBD44A0581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financee.Services", "Financee.Services\Financee.Services.csproj", "{5A6B3CBC-0F34-4986-BBF4-7DFC071494F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financee.Services", "Financee.Services\Financee.Services.csproj", "{5A6B3CBC-0F34-4986-BBF4-7DFC071494F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financee.Data", "Financee.Data\Financee.Data.csproj", "{8B5745C4-49FB-41B1-A55D-5D56B4DBEC14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financee.Data", "Financee.Data\Financee.Data.csproj", "{8B5745C4-49FB-41B1-A55D-5D56B4DBEC14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

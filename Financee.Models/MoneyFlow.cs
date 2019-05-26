@@ -9,7 +9,5 @@ namespace Financee.Models
         public DateTime Date { get; set; } = DateTime.Now;
 
         public decimal Money { get; set; }
-
-        public string OwnerId { get; set; }
     }
 }

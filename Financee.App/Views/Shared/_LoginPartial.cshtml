@@ -1,7 +1,7 @@
 ﻿@using Financee.Models
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<FinanceeUser> SignInManager
+@inject UserManager<FinanceeUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

@@ -1,8 +1,12 @@
-﻿@{
+﻿@model Financee.App.Controllers.ReportsController
+
+
+@{
     ViewData["Title"] = "Сметки";
 }
-<partial name="~/Views/Partials/_Headers.cshtml"/>
-<partial name="~/Views/Reports/_MonthlyReport.cshtml" />
+<a asp-action="MonthlyReport" asp-controller="Reports"> Click button</a>
+<partial name="~/Views/Partials/_Headers.cshtml" />
+<partial name="~/Views/Reports/_MonthlyReport.cshtml" , model="Model" />
 <!-- ACTIONS -->
 <section id="action" class="py-4 mb-4 bg-light">
     <div class="container">

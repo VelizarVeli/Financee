@@ -6,6 +6,6 @@ namespace Financee.Services.Contracts
 {
     public interface IAccountService
     {
-        Task<IEnumerable<AccountViewModel>> AllExpenditures(string id);
+        Task<IEnumerable<AccountViewModel>> MonthlyExpenditures(string id);
     }
 }

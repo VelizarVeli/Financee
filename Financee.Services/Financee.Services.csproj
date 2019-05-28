@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Financee.Common\Financee.Common.csproj" />
     <ProjectReference Include="..\Financee.Data\Financee.Data.csproj" />
     <ProjectReference Include="..\Financee.Models\Financee.Models.csproj" />
   </ItemGroup>
@@ -16,6 +17,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
       <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.http.abstractions\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">
+      <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.identity.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

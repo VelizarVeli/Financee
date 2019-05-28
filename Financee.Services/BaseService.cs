@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Financee.Data;
+using Financee.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace Financee.Services
@@ -7,17 +8,15 @@ namespace Financee.Services
     public class BaseService
     {
         protected BaseService(FinanceeDbContext dbContext,
-            IMapper mapper,
-            UserManager<IdentityUser> userManager)
+            UserManager<FinanceeUser> userManager)
         {
             this.DbContext = dbContext;
-            this.Mapper = mapper;
             this.UserManager = userManager;
         }
 
         protected FinanceeDbContext DbContext { get; private set; }
 
-        protected UserManager<IdentityUser> UserManager { get; private set; }
+        protected UserManager<FinanceeUser> UserManager { get; private set; }
 
         protected IMapper Mapper { get; private set; }
 

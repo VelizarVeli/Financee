@@ -21,7 +21,6 @@ namespace Financee.App.Controllers
         public async Task<IActionResult> MonthlyReport()
         {
             var monthlyReport = await _accountService.MonthlyExpenditures(_user.GetUserId(User));
-            ViewData["MyProduct"] = monthlyReport;
             return View("_MonthlyReport", monthlyReport);
         }
     }

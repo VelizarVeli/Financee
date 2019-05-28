@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Месечен отчет";
+}
+@using System.Globalization
+@model Financee.Common.ViewModels.MoneyFlowViewModel
+
+<section id="posts">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Latest Posts</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Ден от седмицата</th>
+                                <th>Дата</th>
+                                <th>Разход</th>
+                                <th>За какво е направен</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var expenditure in Model.Expenditures)
+                            {
+                                <tr>
+                                    <td scope="row">@expenditure.WeekDay</td>
+                                    <td>@expenditure.Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture)</td>
+                                    <td>@expenditure.Expenditure</td>
+                                    <td>@expenditure.WhatIsmadeFor</td>
+                                    <td>
+                                        <a href="details.html" class="btn btn-secondary">
+                                            <i class="fa fa-angle-double-right"></i> Details
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-primary text-white mb-3">
+                    <div class="card-body">
+                        <h3>Posts</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-pencil"></i> 6
+                        </h1>
+                        <a href="posts.html" class="btn btn-outline-light btn-sm">View</a>
+                    </div>
+                </div>
+
+                <div class="card text-center bg-success text-white mb-3">
+                    <div class="card-body">
+                        <h3>Categories</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-folder-open-o"></i> 4
+                        </h1>
+                        <a href="categories.html" class="btn btn-outline-light btn-sm">View</a>
+                    </div>
+                </div>
+
+                <div class="card text-center bg-warning text-white mb-3">
+                    <div class="card-body">
+                        <h3>Users</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-users"></i> 2
+                        </h1>
+                        <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,14 +1,28 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Financee.App.Models;
+using Financee.Models;
+using Financee.Services.Contracts;
+using Microsoft.AspNetCore.Identity;
 
 namespace Financee.App.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<FinanceeUser> _user;
+        private readonly IAccountService _accountService;
+
+        public HomeController(UserManager<FinanceeUser> user, IAccountService accountService)
         {
-            return View();
+            _user = user;
+            _accountService = accountService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var monthlyReport = await _accountService.MonthlyExpenditures(_user.GetUserId(User));
+            return View("_MonthlyReport", monthlyReport);
         }
 
         public IActionResult Privacy()

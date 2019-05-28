@@ -1,8 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Месечен отчет";
 }
-<!-- POSTS -->
-@*<section id="posts">*@
+<section id="posts">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -13,7 +12,7 @@
                     <table class="table table-striped">
                         <thead class="thead-inverse">
                             <tr>
-                                <th>Ден от седмицата @Model.</th>
+                                <th>Ден от седмицата</th>
                                 <th>Дата</th>
                                 <th>Разход</th>
                                 <th>За какво е направен</th>
@@ -21,17 +20,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row">1</td>
-                                <td>Post One</td>
-                                <td>Web Development</td>
-                                <td>July 12, 2017</td>
-                                <td>
-                                    <a href="details.html" class="btn btn-secondary">
-                                        <i class="fa fa-angle-double-right"></i> Details
-                                    </a>
-                                </td>
-                            </tr>
+                            @*@foreach (var exp in Model.Expenditures)
+                            {*@
+                                <tr>
+                                    <td scope="row">@*@exp*@</td>
+                                    <td>Post One</td>
+                                    <td>Web Development</td>
+                                    <td>July 12, 2017</td>
+                                    <td>
+                                        <a href="details.html" class="btn btn-secondary">
+                                            <i class="fa fa-angle-double-right"></i> Details
+                                        </a>
+                                    </td>
+                                </tr>
+                            @*  *@}
                             <tr>
                                 <td scope="row">2</td>
                                 <td>Post Two</td>
@@ -124,4 +126,4 @@
             </div>
         </div>
     </div>
-@*</section>*@
+</section>

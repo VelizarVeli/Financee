@@ -21,6 +21,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Financee.Common\Financee.Common.csproj" />
     <ProjectReference Include="..\Financee.Data\Financee.Data.csproj" />
     <ProjectReference Include="..\Financee.Models\Financee.Models.csproj" />
     <ProjectReference Include="..\Financee.Services\Financee.Services.csproj" />

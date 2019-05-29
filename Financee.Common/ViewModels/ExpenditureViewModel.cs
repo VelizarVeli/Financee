@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Financee.Common.ViewModels
 {
@@ -9,5 +10,8 @@ namespace Financee.Common.ViewModels
         public DateTime Date { get; set; }
         public decimal Expenditure { get; set; }
         public string WhatIsmadeFor { get; set; }
+
+        public string Category { get; set; }
+        public ICollection<string> CurrentCategories { get; set; } = new HashSet<string>();
     }
 }

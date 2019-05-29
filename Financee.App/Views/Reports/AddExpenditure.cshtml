@@ -1,0 +1,51 @@
+﻿@model Financee.Common.ViewModels.ExpenditureModalBindingModel
+@{
+    ViewData["Title"] = "Add Expenditure";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Добави Разход</h5>
+        </div>
+        <div class="modal-body">
+            <form asp-action="AddExpenditurePost" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Date"></label>
+                    <input asp-for="Date" class="form-control">
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Expenditure"></label>
+                    <input asp-for="Expenditure" class="form-control">
+                    <span asp-validation-for="Expenditure" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ForWhat"></label>
+                    <input asp-for="ForWhat" class="form-control">
+                    <span asp-validation-for="ForWhat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <select asp-for="Category" class="form-control">
+                        <option value="-- Избери категория --"></option>
+                        @foreach (var category in Model.CurrentCategories)
+                        {
+                            <option>@category</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                    <button type="submit" class="btn btn-success">Запиши</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

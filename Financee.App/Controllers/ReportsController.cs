@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Financee.Common.ViewModels;
 using Financee.Data;
+using Financee.Models;
 using Financee.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,19 +11,28 @@ namespace Financee.App.Controllers
 {
     public class ReportsController : Controller
     {
-        private readonly UserManager<IdentityUser> _user;
+        private readonly UserManager<FinanceeUser> _user;
         private readonly IAccountService _accountService;
-        public ReportsController(FinanceeDbContext dbContext, UserManager<IdentityUser> user, IAccountService accountService)
+
+        public ReportsController(FinanceeDbContext dbContext, UserManager<FinanceeUser> user, IAccountService accountService)
         {
             _user = user;
             _accountService = accountService;
         }
 
         [Authorize]
-        public async Task<IActionResult> MonthlyReport()
+        public IActionResult AddExpenditure()
         {
-            var monthlyReport = await _accountService.MonthlyExpenditures(_user.GetUserId(User));
-            return View("_MonthlyReport", monthlyReport);
+            var viewModel = _accountService.GetCategoryNames();
+            return View("AddExpenditure", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddExpenditurePost(ExpenditureModalBindingModel model)
+        {
+            await _accountService.AddExpenditure(model, _user.GetUserId(User));
+            return RedirectToAction("Index", "Home");
         }
     }
 }

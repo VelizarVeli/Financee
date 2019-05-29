@@ -22,7 +22,7 @@ namespace Financee.App.Controllers
         public async Task<IActionResult> Index()
         {
             var monthlyReport = await _accountService.MonthlyExpenditures(_user.GetUserId(User));
-            return View("_MonthlyReport", monthlyReport);
+            return View("Index", monthlyReport);
         }
 
         public IActionResult Privacy()

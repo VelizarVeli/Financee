@@ -13,5 +13,6 @@ namespace Financee.Data
 
         public DbSet<Income> Incomes { get; set; }
         public DbSet<Expenditure> Expenditures { get; set; }
+        public DbSet<BudgetCategory> BudgetCategories { get; set; }
     }
 }

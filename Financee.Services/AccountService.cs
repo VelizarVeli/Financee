@@ -35,7 +35,8 @@ namespace Financee.Services
                         Expenditure = a.Money,
                         WeekDay = WeekDayTranslateBg(a.Date),
                         WhatIsmadeFor = a.ForWhat
-                    });
+                    })
+                    .OrderBy(m => m.Date);
                 monthlyFlow.Incomes = DbContext.Incomes.Where(u => u.EarnerId == user.Id)
                     .Select(a => new IncomeViewModel
                     {
@@ -93,7 +94,8 @@ namespace Financee.Services
                         Expenditure = a.Money,
                         WeekDay = WeekDayTranslateBg(a.Date),
                         WhatIsmadeFor = a.ForWhat
-                    });
+                    })
+                    .OrderBy(m => m.Date);
                 monthlyFlow.Incomes = DbContext.Incomes.Where(u => u.EarnerId == user.Id)
                     .Select(a => new IncomeViewModel
                     {

@@ -3,21 +3,21 @@
 }
 @using System.Globalization
 @model Financee.Common.ViewModels.MoneyFlowViewModel
-
+@{ decimal sum = 0;}
 <section id="posts">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Latest Posts</h4>
+                        <h4>@Model.Expenditures.First().Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
                     </div>
                     <table class="table table-striped">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>Ден от седмицата</th>
-                                <th>Дата</th>
-                                <th>Разход</th>
+                                <th class="text-center">Дата</th>
+                                <th class="text-right">Разход</th>
                                 <th>За какво е направен</th>
                                 <th></th>
                             </tr>
@@ -27,8 +27,8 @@
                             {
                                 <tr>
                                     <td scope="row">@expenditure.WeekDay</td>
-                                    <td>@expenditure.Date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture)</td>
-                                    <td>@expenditure.Expenditure</td>
+                                    <td>@expenditure.Date.ToString("dd MMMM yyyy", new CultureInfo("bg-BG"))</td>
+                                    <td class="text-right">@expenditure.Expenditure лв</td>
                                     <td>@expenditure.WhatIsmadeFor</td>
                                     <td>
                                         <a href="details.html" class="btn btn-secondary">
@@ -36,9 +36,14 @@
                                         </a>
                                     </td>
                                 </tr>
+                                sum += expenditure.Expenditure;
                             }
                         </tbody>
                     </table>
+                </div>
+                <hr />
+                <div>
+                    <h1 class="bg-primary text-white text-center">Общо разходи за месеца: @sum лв</h1>
                 </div>
             </div>
             <div class="col-md-3">

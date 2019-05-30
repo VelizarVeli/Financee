@@ -1,43 +1,17 @@
-﻿@if (User.IsInRole("Admin") || User.IsInRole("User"))
+﻿@using System.Globalization
+@{ var month = new DateTime();}
+
+@if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
     <div class="container">
         <div class="row">
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="1">Януари</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="2">Февруари</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="3">Март</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="4">Април</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="5">Май</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="6">Юни</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="7">Юли</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="8">Август</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="9">Септември</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="10">Октомври</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="11">Ноември</a>
-            </div>
-            <div class="col-md-1">
-                <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="12">Декември</a>
-            </div>
+            @for (int i = 0; i < 12; i++)
+            {
+                <div class="col-md-1">
+                    <a class="nav-link text-light" asp-controller="Reports" asp-action="Monthly" asp-route-id="@month.Month">@month.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</a>
+                </div>
+                month = month.AddMonths(1);
+            }
         </div>
     </div>
 }

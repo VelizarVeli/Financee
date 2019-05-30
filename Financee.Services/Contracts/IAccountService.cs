@@ -8,5 +8,6 @@ namespace Financee.Services.Contracts
         Task<MoneyFlowViewModel> MonthlyExpenditures(string id);
         ExpenditureModalBindingModel GetCategoryNames();
         Task AddExpenditure(ExpenditureModalBindingModel viewModel, string userId);
+        Task<MoneyFlowViewModel> ViewByMonth(int id, string userId);
     }
 }

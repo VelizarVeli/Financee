@@ -7,7 +7,6 @@ using Financee.Data;
 using Financee.Models;
 using Financee.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Financee.Services
 {
@@ -23,11 +22,12 @@ namespace Financee.Services
             var user = await UserManager.FindByIdAsync(id);
 
             var monthlyFlow = new MoneyFlowViewModel();
+            var currentMonth = DateTime.Now.Month;
 
             if (user != null)
             {
                 monthlyFlow.Expenditures = DbContext.Expenditures
-                    .Where(u => u.SpenderId == user.Id)
+                    .Where(u => u.SpenderId == user.Id && u.Date.Month == currentMonth)
                     .Select(a => new ExpenditureViewModel
                     {
                         Id = a.Id,
@@ -75,6 +75,35 @@ namespace Financee.Services
             DbContext.Expenditures.Add(expenditure);
             await DbContext.SaveChangesAsync();
         }
+
+        public async Task<MoneyFlowViewModel> ViewByMonth(int id, string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+
+            var monthlyFlow = new MoneyFlowViewModel();
+
+            if (user != null)
+            {
+                monthlyFlow.Expenditures = DbContext.Expenditures
+                    .Where(u => u.SpenderId == user.Id && u.Date.Month == id)
+                    .Select(a => new ExpenditureViewModel
+                    {
+                        Id = a.Id,
+                        Date = a.Date,
+                        Expenditure = a.Money,
+                        WeekDay = WeekDayTranslateBg(a.Date),
+                        WhatIsmadeFor = a.ForWhat
+                    });
+                monthlyFlow.Incomes = DbContext.Incomes.Where(u => u.EarnerId == user.Id)
+                    .Select(a => new IncomeViewModel
+                    {
+
+                    });
+            }
+            return monthlyFlow;
+        }
+
+        
 
         private string WeekDayTranslateBg(DateTime date)
         {

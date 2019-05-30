@@ -34,5 +34,11 @@ namespace Financee.App.Controllers
             await _accountService.AddExpenditure(model, _user.GetUserId(User));
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Monthly(int id)
+        {
+            var viewByMonth = await _accountService.ViewByMonth(id, _user.GetUserId(User));
+            return View("ShowReportByMonth", viewByMonth);
+        }
     }
 }

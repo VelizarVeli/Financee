@@ -8,6 +8,7 @@ namespace Financee.Common.ViewModels
     {
         [Display(Name = "Дата")]
         [Required]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "dd-MMМ-yyyy")]
         public DateTime Date { get; set; } = DateTime.Now;
 

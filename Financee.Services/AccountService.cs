@@ -17,7 +17,7 @@ namespace Financee.Services
         {
         }
 
-        public async Task<MoneyFlowViewModel> MonthlyExpenditures(string id)
+        public async Task<MoneyFlowViewModel> MonthlyMoneyFlow(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
 
@@ -37,10 +37,15 @@ namespace Financee.Services
                         WhatIsmadeFor = a.ForWhat
                     })
                     .OrderBy(m => m.Date);
-                monthlyFlow.Incomes = DbContext.Incomes.Where(u => u.EarnerId == user.Id)
+                monthlyFlow.Incomes = DbContext.Incomes
+                    .Where(u => u.EarnerId == user.Id && u.Date.Month == currentMonth)
                     .Select(a => new IncomeViewModel
                     {
-
+                        Id = a.Id,
+                        Date = a.Date,
+                        Income = a.Money,
+                        WeekDay = WeekDayTranslateBg(a.Date),
+                        WhereFrom = a.FromWhere
                     });
             }
             return monthlyFlow;

@@ -21,7 +21,7 @@ namespace Financee.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var monthlyReport = await _accountService.MonthlyExpenditures(_user.GetUserId(User));
+            var monthlyReport = await _accountService.MonthlyMoneyFlow(_user.GetUserId(User));
             return View("Index", monthlyReport);
         }
 

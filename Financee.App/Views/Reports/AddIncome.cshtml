@@ -1,0 +1,40 @@
+﻿@model Financee.Common.ViewModels.IncomeModalBindingModel
+@{
+    ViewData["Title"] = "Add Income";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Добави Приход</h5>
+        </div>
+        <div class="modal-body">
+            <form asp-action="AddIncomePost" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+               <div class="form-group">
+                    <label asp-for="Date"></label>
+                    <input asp-for="Date" class="form-control">
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Income"></label>
+                    <input asp-for="Income" class="form-control">
+                    <span asp-validation-for="Income" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FromWhere"></label>
+                    <input asp-for="FromWhere" class="form-control">
+                    <span asp-validation-for="FromWhere" class="text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Затвори</a>
+                    <button type="submit" class="btn btn-success">Запиши</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -35,6 +35,21 @@ namespace Financee.App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        public IActionResult AddIncome()
+        {
+            var viewModel = new IncomeModalBindingModel();
+            return View("AddIncome", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddIncomePost(IncomeModalBindingModel model)
+        {
+            await _accountService.AddIncome(model, _user.GetUserId(User));
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> Monthly(int id)
         {
             var viewByMonth = await _accountService.ViewByMonth(id, _user.GetUserId(User));

@@ -82,6 +82,22 @@ namespace Financee.Services
             await DbContext.SaveChangesAsync();
         }
 
+        public async Task AddIncome(IncomeModalBindingModel viewModel, string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+
+            var income = new Income()
+            {
+                Date = viewModel.Date,
+                FromWhere = viewModel.FromWhere,
+                Money = viewModel.Income,
+                EarnerId = user.Id
+            };
+
+            DbContext.Incomes.Add(income);
+            await DbContext.SaveChangesAsync();
+        }
+
         public async Task<MoneyFlowViewModel> ViewByMonth(int id, string userId)
         {
             var user = await UserManager.FindByIdAsync(userId);
@@ -101,16 +117,19 @@ namespace Financee.Services
                         WhatIsmadeFor = a.ForWhat
                     })
                     .OrderBy(m => m.Date);
-                monthlyFlow.Incomes = DbContext.Incomes.Where(u => u.EarnerId == user.Id)
+                monthlyFlow.Incomes = DbContext.Incomes
+                    .Where(u => u.EarnerId == user.Id && u.Date.Month == id)
                     .Select(a => new IncomeViewModel
                     {
-
+                        Id = a.Id,
+                        Date = a.Date,
+                        Income = a.Money,
+                        WeekDay = WeekDayTranslateBg(a.Date),
+                        WhereFrom = a.FromWhere
                     });
             }
             return monthlyFlow;
         }
-
-        
 
         private string WeekDayTranslateBg(DateTime date)
         {

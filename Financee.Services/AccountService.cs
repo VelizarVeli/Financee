@@ -50,8 +50,11 @@ namespace Financee.Services
                     .OrderBy(m => m.Date);
             }
 
-            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes.Where(u => u.EarnerId == id).Sum(i => i.Money) - DbContext.Expenditures.Where(u => u.SpenderId == id).Sum(e => e.Money));
-            return monthlyFlow;
+            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes
+                                                           .Where(u => u.EarnerId == id && u.Date.Month <= currentMonth)
+                                                           .Sum(i => i.Money) - DbContext.Expenditures
+                                                           .Where(u => u.SpenderId == id && u.Date.Month <= currentMonth)
+                                                           .Sum(e => e.Money)); return monthlyFlow;
         }
 
         public ExpenditureModalBindingModel GetCategoryNames()
@@ -71,17 +74,21 @@ namespace Financee.Services
             var user = await UserManager.FindByIdAsync(userId);
             var budgetCategory = DbContext.BudgetCategories.FirstOrDefault(n => n.Name == viewModel.Category);
 
-            var expenditure = new Expenditure
+            if (budgetCategory != null)
             {
-                BudgetCategoryId = budgetCategory.Id,
+                var expenditure = new Expenditure
+                {
+                    BudgetCategoryId = budgetCategory.Id,
 
-                Date = viewModel.Date,
-                ForWhat = viewModel.ForWhat,
-                Money = viewModel.Expenditure,
-                SpenderId = user.Id
-            };
+                    Date = viewModel.Date,
+                    ForWhat = viewModel.ForWhat,
+                    Money = viewModel.Expenditure,
+                    SpenderId = user.Id
+                };
 
-            DbContext.Expenditures.Add(expenditure);
+                DbContext.Expenditures.Add(expenditure);
+            }
+
             await DbContext.SaveChangesAsync();
         }
 
@@ -129,9 +136,14 @@ namespace Financee.Services
                         Income = a.Money,
                         WeekDay = WeekDayTranslateBg(a.Date),
                         WhereFrom = a.FromWhere
-                    });
+                    })
+                    .OrderBy(m => m.Date);
             }
-            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes.Where(u => u.EarnerId == userId).Sum(i => i.Money) - DbContext.Expenditures.Where(u => u.SpenderId == userId).Sum(e => e.Money));
+            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes
+                                                           .Where(u => u.EarnerId == userId && u.Date.Month <= id)
+                                                           .Sum(i => i.Money) - DbContext.Expenditures
+                                                           .Where(u => u.SpenderId == userId && u.Date.Month <= id)
+                                                           .Sum(e => e.Money));
             return monthlyFlow;
         }
 

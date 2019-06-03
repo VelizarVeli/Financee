@@ -10,5 +10,7 @@ namespace Financee.Services.Contracts
         Task AddExpenditure(ExpenditureModalBindingModel viewModel, string userId);
         Task<MoneyFlowViewModel> ViewByMonth(int id, string userId);
         Task AddIncome(IncomeModalBindingModel viewModel, string userId);
+        Task DeleteExpenditure(long id);
+        Task DeleteIncome(long id);
     }
 }

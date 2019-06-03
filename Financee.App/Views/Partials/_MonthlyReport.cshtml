@@ -10,7 +10,7 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <h4>Разходи за месец @Model.Expenditures.First().Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+                    <h4>Разходи за месец @Model.Expenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
                 </div>
                 <table class="table table-striped">
                     <thead class="thead-inverse">
@@ -31,7 +31,7 @@
                                 <td class="text-right">@expenditure.Expenditure лв</td>
                                 <td>@expenditure.WhatIsmadeFor</td>
                                 <td>
-                                    <a href="details.html" class="btn btn-secondary">Изтрий</a>
+                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" asp-route-id="@expenditure.Id" class="btn btn-secondary">Изтрий</a>
                                 </td>
                             </tr>
                             sumExpenditure += expenditure.Expenditure;
@@ -77,7 +77,7 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <h4>Приходи за месец @Model.Expenditures.First().Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+                    <h4>Приходи за месец @Model.Incomes.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
                 </div>
                 <table class="table table-striped">
                     <thead class="thead-inverse">
@@ -98,7 +98,7 @@
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.WhereFrom</td>
                                 <td>
-                                    <a href="details.html" class="btn btn-secondary">Изтрий</a>
+                                    <a asp-controller="Reports" asp-action="DeleteIncome" asp-route-id="@income.Id" class="btn btn-secondary">Изтрий</a>
                                 </td>
                             </tr>
                             sumIncome += income.Income;

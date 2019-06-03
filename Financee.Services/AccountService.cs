@@ -131,7 +131,28 @@ namespace Financee.Services
                         WhereFrom = a.FromWhere
                     });
             }
+            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes.Where(u => u.EarnerId == userId).Sum(i => i.Money) - DbContext.Expenditures.Where(u => u.SpenderId == userId).Sum(e => e.Money));
             return monthlyFlow;
+        }
+
+        public async Task DeleteExpenditure(long id)
+        {
+            var expenditure = DbContext.Expenditures.FirstOrDefault(e => e.Id == id);
+            if (expenditure != null)
+            {
+                DbContext.Expenditures.Remove(expenditure);
+                await DbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteIncome(long id)
+        {
+            var income = DbContext.Incomes.FirstOrDefault(e => e.Id == id);
+            if (income != null)
+            {
+                DbContext.Incomes.Remove(income);
+                await DbContext.SaveChangesAsync();
+            }
         }
 
         private string WeekDayTranslateBg(DateTime date)

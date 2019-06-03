@@ -55,5 +55,17 @@ namespace Financee.App.Controllers
             var viewByMonth = await _accountService.ViewByMonth(id, _user.GetUserId(User));
             return View("ShowReportByMonth", viewByMonth);
         }
+
+        public async Task<IActionResult> DeleteExpenditure(long id)
+        {
+            await _accountService.DeleteExpenditure(id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> DeleteIncome(long id)
+        {
+            await _accountService.DeleteIncome(id);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

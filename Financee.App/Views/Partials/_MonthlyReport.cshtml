@@ -31,9 +31,7 @@
                                 <td class="text-right">@expenditure.Expenditure лв</td>
                                 <td>@expenditure.WhatIsmadeFor</td>
                                 <td>
-                                    <a href="details.html" class="btn btn-secondary">
-                                        <i class="fa fa-angle-double-right"></i> Изтрий
-                                    </a>
+                                    <a href="details.html" class="btn btn-secondary">Изтрий</a>
                                 </td>
                             </tr>
                             sumExpenditure += expenditure.Expenditure;
@@ -49,11 +47,10 @@
         <div class="col-md-2">
             <div class="card text-center bg-primary text-white mb-3">
                 <div class="card-body">
-                    <h3>Posts</h3>
+                    <h3>Налични пари</h3>
                     <h1 class="display-4">
-                        <i class="fa fa-pencil"></i> 6
+                        <i class="fa fa-pencil"></i>@Model.AvailableMoney лв
                     </h1>
-                    <a href="posts.html" class="btn btn-outline-light btn-sm">View</a>
                 </div>
             </div>
 
@@ -101,9 +98,7 @@
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.WhereFrom</td>
                                 <td>
-                                    <a href="details.html" class="btn btn-secondary">
-                                        <i class="fa fa-angle-double-right"></i> Изтрий
-                                    </a>
+                                    <a href="details.html" class="btn btn-secondary">Изтрий</a>
                                 </td>
                             </tr>
                             sumIncome += income.Income;

@@ -46,8 +46,11 @@ namespace Financee.Services
                         Income = a.Money,
                         WeekDay = WeekDayTranslateBg(a.Date),
                         WhereFrom = a.FromWhere
-                    });
+                    })
+                    .OrderBy(m => m.Date);
             }
+
+            monthlyFlow.AvailableMoney = Math.Truncate(DbContext.Incomes.Where(u => u.EarnerId == id).Sum(i => i.Money) - DbContext.Expenditures.Where(u => u.SpenderId == id).Sum(e => e.Money));
             return monthlyFlow;
         }
 

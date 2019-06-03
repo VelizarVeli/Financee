@@ -6,5 +6,6 @@ namespace Financee.Common.ViewModels
     {
         public IEnumerable<ExpenditureViewModel> Expenditures { get; set; }
         public IEnumerable<IncomeViewModel> Incomes { get; set; }
+        public decimal AvailableMoney { get; set; } = 0;
     }
 }

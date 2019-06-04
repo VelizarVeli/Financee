@@ -50,6 +50,20 @@ namespace Financee.App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        public IActionResult AddCategory()
+        {
+            return View("AddCategory");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddCategoryPost(CategoryViewModel model)
+        {
+            await _accountService.AddCategory(model);
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<IActionResult> Monthly(int id)
         {
             var viewByMonth = await _accountService.ViewByMonth(id, _user.GetUserId(User));

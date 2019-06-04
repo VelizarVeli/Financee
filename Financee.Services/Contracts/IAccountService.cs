@@ -12,5 +12,6 @@ namespace Financee.Services.Contracts
         Task AddIncome(IncomeModalBindingModel viewModel, string userId);
         Task DeleteExpenditure(long id);
         Task DeleteIncome(long id);
+        Task AddCategory(CategoryViewModel viewModel);
     }
 }

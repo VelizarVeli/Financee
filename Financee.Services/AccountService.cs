@@ -96,7 +96,7 @@ namespace Financee.Services
         {
             var user = await UserManager.FindByIdAsync(userId);
 
-            var income = new Income()
+            var income = new Income
             {
                 Date = viewModel.Date,
                 FromWhere = viewModel.FromWhere,
@@ -105,6 +105,17 @@ namespace Financee.Services
             };
 
             DbContext.Incomes.Add(income);
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task AddCategory(CategoryViewModel viewModel)
+        {
+            var category = new BudgetCategory
+            {
+                Name = viewModel.Category
+            };
+
+            DbContext.BudgetCategories.Add(category);
             await DbContext.SaveChangesAsync();
         }
 

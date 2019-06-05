@@ -13,5 +13,7 @@ namespace Financee.Services.Contracts
         Task DeleteExpenditure(long id);
         Task DeleteIncome(long id);
         Task AddCategory(CategoryViewModel viewModel);
+        MonthlyBudgetsViewModel GetMonthlyBudget(string userId);
+        Task ChangeGoal(MonthlyBudgetsViewModel viewModel);
     }
 }

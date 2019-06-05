@@ -81,5 +81,20 @@ namespace Financee.App.Controllers
             await _accountService.DeleteIncome(id);
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        public IActionResult MonthlyBudget()
+        {
+            var viewModel = _accountService.GetMonthlyBudget(_user.GetUserId(User));
+            return View("MonthlyBudget", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangeGoal(MonthlyBudgetsViewModel model)
+        {
+            await _accountService.ChangeGoal(model);
+            return RedirectToAction("MonthlyBudget");
+        }
     }
 }

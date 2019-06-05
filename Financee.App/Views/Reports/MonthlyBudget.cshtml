@@ -1,0 +1,71 @@
+﻿@using System.Globalization
+@model Financee.Common.ViewModels.MonthlyBudgetsViewModel
+@{
+    ViewData["Title"] = "Месечен проектобюджет";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var sumGoal = 0M;
+    var sumExpenditures = 0M;
+    var sumResult = 0M;
+}
+<div class="container justify-content-center col-md-6 mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">Проектобюджет за месец @DateTime.Now.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+        </div>
+        <form asp-action="ChangeGoal">
+            <table class="table table-striped table-hover table-success">
+                <thead>
+                    <tr>
+                        <th>Категория</th>
+                        <th>Цел</th>
+                        <th class="text-right">Разходи досега</th>
+                        <th class="text-right">Разлика</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.CurrentMonthlyBudgets)
+                    {
+                        decimal result = category.SetGoal - category.CurrentSum;
+                        <tr>
+                            <td scope="row">@category.Item</td>
+                            <td>
+                                <input asp-for="@category.SetGoal" class="form-control" />
+                                <span asp-validation-for="@category.SetGoal" class="text-danger"></span>
+                            </td>
+                            <td class="text-right">@category.CurrentSum лв</td>
+                            <td class="text-right">@result лв</td>
+                        </tr>
+                        sumGoal += category.SetGoal;
+                        sumExpenditures += category.CurrentSum;
+                        sumResult += result;
+                    }
+                    <br>
+                    @if (sumResult > 0)
+                    {
+                        <tr class="table-primary">
+                            <td scope="row">Общо:</td>
+                            <td>@sumGoal лв</td>
+                            <td class="text-right">@sumExpenditures лв</td>
+                            <td class="text-right">@sumResult лв</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="table-danger">
+                            <td scope="row">Общо:</td>
+                            <td>@sumGoal лв</td>
+                            <td class="text-right">@sumExpenditures лв</td>
+                            <td class="text-right">@sumResult лв</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (DateTime.Now.Day < 15)
+            {
+                <button class="btn btn-danger float-right">Промени</button>
+            }
+        </form>
+    </div>
+</div>

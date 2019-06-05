@@ -16,6 +16,8 @@ namespace Financee.Models
         [Required]
         public string Name { get; set; }
 
+        public decimal SetGoal { get; set; }
+
         public ICollection<Expenditure> Expenditures { get; set; }
     }
 }

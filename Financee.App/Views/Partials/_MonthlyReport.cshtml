@@ -31,7 +31,8 @@
                                 <td class="text-right mx-auto">@expenditure.Expenditure лв</td>
                                 <td>@expenditure.WhatIsmadeFor</td>
                                 <td>
-                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" asp-route-id="@expenditure.Id" class="btn btn-secondary">Изтрий</a>
+                                    
+                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" asp-route-id="@expenditure.Id" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             sumExpenditure += expenditure.Expenditure;
@@ -56,11 +57,8 @@
 
             <div class="card text-center bg-success text-white mb-3">
                 <div class="card-body">
-                    <h3>Categories</h3>
-                    <h1 class="display-4">
-                        <i class="fa fa-folder-open-o"></i> 4
-                    </h1>
-                    <a href="categories.html" class="btn btn-outline-light btn-sm">View</a>
+                    <h3>Бюджет за @Model.Expenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h3>
+                    <a class="btn btn-outline-light btn-sm" asp-controller="Reports" asp-action="MonthlyBudget">Виж</a>
                 </div>
             </div>
 
@@ -70,7 +68,7 @@
                     <h1 class="display-4">
                         <i class="fa fa-users"></i> 2
                     </h1>
-                    <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
+                    <a class="btn btn-outline-light btn-sm">View</a>
                 </div>
             </div>
         </div>
@@ -80,7 +78,7 @@
                     <h4>Приходи за месец @Model.Expenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
                 </div>
                 <table class="table table-striped table-hover table-sm table-success">
-                    <thead class="thead-inverse">
+                    <thead>
                         <tr>
                             <th>Ден от седмицата</th>
                             <th class="text-center">Дата</th>
@@ -98,7 +96,7 @@
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.WhereFrom</td>
                                 <td>
-                                    <a asp-controller="Reports" asp-action="DeleteIncome" asp-route-id="@income.Id" class="btn btn-secondary">Изтрий</a>
+                                    <a asp-controller="Reports" asp-action="DeleteIncome" asp-route-id="@income.Id" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             sumIncome += income.Income;

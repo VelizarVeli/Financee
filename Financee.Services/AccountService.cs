@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.Configuration.Annotations;
 using Financee.Common.ViewModels;
 using Financee.Data;
 using Financee.Models;
@@ -176,6 +178,44 @@ namespace Financee.Services
                 DbContext.Incomes.Remove(income);
                 await DbContext.SaveChangesAsync();
             }
+        }
+
+        public MonthlyBudgetsViewModel GetMonthlyBudget(string userId)
+        {
+            var allCategories = DbContext.BudgetCategories;
+            var viewModel = new MonthlyBudgetsViewModel();
+            foreach (var category in allCategories)
+            {
+                var budgetCategory = new MonthlyBudgetViewModel()
+                {
+                    Item = category.Name,
+                    CurrentSum = DbContext.Expenditures
+                        .Where(a => a.SpenderId == userId && a.BudgetCategoryId == category.Id && a.Date.Month == DateTime.Now.Month)
+                        .Sum(a => a.Money),
+                    SetGoal = category.SetGoal
+                };
+                viewModel.CurrentMonthlyBudgets.Add(budgetCategory);
+            }
+
+            return viewModel;
+        }
+
+        public async Task ChangeGoal(MonthlyBudgetsViewModel viewModel)
+        {
+            var categories = DbContext.BudgetCategories;
+            foreach (var category in viewModel.CurrentMonthlyBudgets)
+            {
+                foreach (var item in categories)
+                {
+                    if (category.Item == item.Name)
+                    {
+                        item.SetGoal = category.SetGoal;
+                    }
+                }
+            }
+
+            DbContext.BudgetCategories.UpdateRange(categories);
+            await DbContext.SaveChangesAsync();
         }
 
         private string WeekDayTranslateBg(DateTime date)

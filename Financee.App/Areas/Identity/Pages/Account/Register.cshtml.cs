@@ -67,11 +67,13 @@ namespace Financee.App.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
+
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
@@ -84,6 +86,10 @@ namespace Financee.App.Areas.Identity.Pages.Account
                 else
                 {
                     var roleResult = this._signInManager.UserManager.AddToRoleAsync(user, "User").Result;
+                }
+                if (User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
                 }
                 if (result.Succeeded)
                 {

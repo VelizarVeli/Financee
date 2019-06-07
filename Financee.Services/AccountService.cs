@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.Configuration.Annotations;
 using Financee.Common.ViewModels;
 using Financee.Data;
 using Financee.Models;

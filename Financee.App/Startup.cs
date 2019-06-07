@@ -51,7 +51,10 @@ namespace Financee.App
 
             RegisterGlobalServices(services);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
@@ -85,6 +88,7 @@ namespace Financee.App
         private void RegisterGlobalServices(IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IGoogleSheetsService, GoogleSheetsService>();
         }
     }
 }

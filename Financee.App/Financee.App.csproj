@@ -12,7 +12,7 @@
     <PackageReference Include="Bootstrap.Datepicker" Version="1.8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 
@@ -27,5 +27,9 @@
     <ProjectReference Include="..\Financee.Models\Financee.Models.csproj" />
     <ProjectReference Include="..\Financee.Services\Financee.Services.csproj" />
   </ItemGroup>
-
+<ItemGroup>
+  <None Update="app_client_secret.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
 </Project>

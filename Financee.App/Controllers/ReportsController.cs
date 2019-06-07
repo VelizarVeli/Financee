@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Financee.Common.ViewModels;
-using Financee.Data;
 using Financee.Models;
 using Financee.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +13,7 @@ namespace Financee.App.Controllers
         private readonly UserManager<FinanceeUser> _user;
         private readonly IAccountService _accountService;
 
-        public ReportsController(FinanceeDbContext dbContext, UserManager<FinanceeUser> user, IAccountService accountService)
+        public ReportsController(UserManager<FinanceeUser> user, IAccountService accountService)
         {
             _user = user;
             _accountService = accountService;
@@ -88,7 +87,7 @@ namespace Financee.App.Controllers
             var viewModel = _accountService.GetMonthlyBudget(_user.GetUserId(User));
             return View("MonthlyBudget", viewModel);
         }
-
+        
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangeGoal(MonthlyBudgetsViewModel model)

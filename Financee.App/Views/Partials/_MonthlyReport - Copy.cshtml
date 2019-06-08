@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Месечен отчет";
+}
+@using System.Globalization
+@model Financee.Common.ViewModels.GoogleSheets.GoogleSheetsViewModel
+@{ decimal sumExpenditure = 0;}
+@{ decimal sumIncome = 0;}
+<section id="posts">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Разходи за месец @Model.GoogleSheetExpenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+                </div>
+                <table class="table table-striped table-hover table-sm table-warning">
+                    <thead>
+                        <tr>
+                            <th>Ден от седмицата</th>
+                            <th class="text-left">Дата</th>
+                            <th class="text-right">Разход</th>
+                            <th>За какво е направен</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var expenditure in Model.GoogleSheetExpenditures)
+                        {
+                            <tr>
+                                <td>@expenditure.Date.DayOfWeek</td>
+                                <td class="text-left">@expenditure.Date.ToString("d MMMM", new CultureInfo("bg-BG"))</td>
+                                <td class="text-right mx-auto">@expenditure.Expenditure лв</td>
+                                <td>@expenditure.ForWhat</td>
+                                <td>
+                                    
+                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            sumExpenditure += expenditure.Expenditure;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <div>
+                <h1 class="bg-primary text-white text-center">Общо разходи за месеца:<br/> @sumExpenditure лв</h1>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-center bg-primary text-white mb-3">
+                <div class="card-body">
+                    <h3>Налични пари</h3>
+                    <h1 class="display-4">
+                        <i class="fa fa-pencil"></i>glupost лв
+                    </h1>
+                </div>
+            </div>
+
+            <div class="card text-center bg-success text-white mb-3">
+                <div class="card-body">
+                    <h3>Бюджет за @Model.GoogleSheetExpenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h3>
+                    <a class="btn btn-outline-light btn-sm" asp-controller="Reports" asp-action="MonthlyBudget">Виж</a>
+                </div>
+            </div>
+
+            <div class="card text-center bg-warning text-white mb-3">
+                <div class="card-body">
+                    <h3>Users</h3>
+                    <h1 class="display-4">
+                        <i class="fa fa-users"></i> 2
+                    </h1>
+                    <a class="btn btn-outline-light btn-sm" asp-controller="GoogleSheets" asp-action="GoogleSheets">Google Sheets</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Приходи за месец @Model.GoogleSheetExpenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+                </div>
+                <table class="table table-striped table-hover table-sm table-success">
+                    <thead>
+                        <tr>
+                            <th>Ден от седмицата</th>
+                            <th class="text-center">Дата</th>
+                            <th class="text-right">Приход</th>
+                            <th>Откъде е дошъл</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var income in Model.GoogleSheetIncomess)
+                        {
+                            <tr>
+                                <td scope="row">@income.Date.DayOfWeek</td>
+                                <td>@income.Date.ToString("d MMMM", new CultureInfo("bg-BG"))</td>
+                                <td class="text-right">@income.Income лв</td>
+                                <td>@income.FromWhere</td>
+                                <td>
+                                    <a asp-controller="Reports" asp-action="DeleteIncome" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            sumIncome += income.Income;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <div>
+                <h1 class="bg-primary text-white text-center">Общо приходи за месеца: @sumIncome лв</h1>
+            </div>
+        </div>
+    </div>
+</section>

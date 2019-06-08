@@ -22,14 +22,8 @@ namespace Financee.Services
         {
             Init();
             var readSheets = ReadSheet();
-            var monthlyFlowGoogleSheets = new GoogleSheetsViewModel
-            {
 
-            };
-            var currentMonth = DateTime.Now.Month;
-
-
-            return  monthlyFlowGoogleSheets;
+            return readSheets;
         }
         static void Init()
         {
@@ -51,31 +45,60 @@ namespace Financee.Services
         private GoogleSheetsViewModel ReadSheet()
         {
             // Specifying Column Range for reading...
-            var range = $"{sheet}!B:D";
+            var range = $"{sheet}!B:G";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                 service.Spreadsheets.Values.Get(SpreadsheetId, range);
             // Ecexuting Read Operation...
             var response = request.Execute();
-            // Getting all records from Column B to D...
+            // Getting all records from Column B to G...
             IList<IList<object>> values = response.Values;
             var allInfo = new GoogleSheetsViewModel();
-            var listOfExpenditures = new List<string>();
             if (values != null && values.Count > 0)
             {
                 foreach (var row in values)
                 {
-                    //if (values)
-                    //{
-                    //    row[0] 
-                    //}
-                    //allInfo.GoogleSheetInfo.
+                    if (row.Count == 3 || row.Count == 6 || row.Count == 4)
+                    {
+                        var expenditureDayInt = row[0].ToString();
+
+                        bool successExpenditure = int.TryParse(expenditureDayInt, out int numberExpenditure);
+                        if (successExpenditure)
+                        {
+                            var getString = row[1].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            var decimalParse = getString[0];
+                            var decima = decimal.Parse(decimalParse);
+                            
+                            allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
+                            {
+                                Date = new DateTime(2019, 1, numberExpenditure),
+                                Expenditure = decima,
+                                ForWhat = row[2].ToString()
+                            });
+                        }
+
+                        if (row.Count == 6)
+                        {
+                            var incomeDayInt = row[3].ToString();
+                            bool successIncome = int.TryParse(incomeDayInt, out int numberIncome);
+                            if (successIncome)
+                            {
+                                string[] getString = row[4].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                                string decimalParse = getString[0];
+                                bool successDecimalIncome = decimal.TryParse(decimalParse, out decimal decimalParseString);
+                                if (successDecimalIncome)
+                                {
+                                    allInfo.GoogleSheetIncomess.Add(new GoogleSheetIncomeViewModel
+                                    {
+                                        Date = new DateTime(2019, 1, numberIncome),
+                                        Income = decimalParseString,
+                                        FromWhere = row[2].ToString()
+                                    });
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            else
-            {
-                Console.WriteLine("No data found.");
-            }
-
             return allInfo;
         }
 

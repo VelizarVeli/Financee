@@ -4,6 +4,13 @@ namespace Financee.Common.ViewModels.GoogleSheets
 {
    public class GoogleSheetsViewModel
     {
-        public IEnumerable<GoogleSheetViewModel> GoogleSheetInfo { get; set; }
+        public GoogleSheetsViewModel()
+        {
+            GoogleSheetExpenditures = new HashSet<GoogleSheetExpenditureViewModel>();
+            GoogleSheetIncomess = new HashSet<GoogleSheetIncomeViewModel>();
+        }
+
+        public ICollection<GoogleSheetExpenditureViewModel> GoogleSheetExpenditures { get; set; }
+        public ICollection<GoogleSheetIncomeViewModel> GoogleSheetIncomess { get; set; }
     }
 }

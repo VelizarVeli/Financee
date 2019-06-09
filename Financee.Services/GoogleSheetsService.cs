@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Financee.Common.ViewModels;
 using Financee.Common.ViewModels.GoogleSheets;
 using Financee.Services.Contracts;
 using Google.Apis.Auth.OAuth2;
@@ -59,6 +60,11 @@ namespace Financee.Services
                 {
                     if (row.Count == 3 || row.Count == 6 || row.Count == 4)
                     {
+                        if (row[1].ToString() == "ОБЩО:")
+                        {
+                            break;
+                        }
+
                         var expenditureDayInt = row[0].ToString();
 
                         bool successExpenditure = int.TryParse(expenditureDayInt, out int numberExpenditure);
@@ -87,11 +93,11 @@ namespace Financee.Services
                                 bool successDecimalIncome = decimal.TryParse(decimalParse, out decimal decimalParseString);
                                 if (successDecimalIncome)
                                 {
-                                    allInfo.GoogleSheetIncomess.Add(new GoogleSheetIncomeViewModel
+                                    allInfo.GoogleSheetIncomes.Add(new GoogleSheetIncomeViewModel
                                     {
                                         Date = new DateTime(2019, 1, numberIncome),
                                         Income = decimalParseString,
-                                        FromWhere = row[2].ToString()
+                                        FromWhere = row[5].ToString()
                                     });
                                 }
                             }
@@ -101,6 +107,72 @@ namespace Financee.Services
             }
             return allInfo;
         }
+
+        //public ExpenditureModalBindingModel GetCategoryNames()
+        //{
+        //    Init();
+        //    var range = $"{sheet}!B:G";
+        //    SpreadsheetsResource.ValuesResource.GetRequest request =
+        //        service.Spreadsheets.Values.Get(SpreadsheetId, range);
+        //    // Ecexuting Read Operation...
+        //    var response = request.Execute();
+        //    // Getting all records from Column B to G...
+        //    IList<IList<object>> values = response.Values;
+        //    var allInfo = new GoogleSheetsViewModel();
+        //    if (values != null && values.Count > 0)
+        //    {
+        //        foreach (var row in values)
+        //        {
+        //            if (row.Count == 3 || row.Count == 6 || row.Count == 4)
+        //            {
+        //                var expenditureDayInt = row[0].ToString();
+
+        //                bool successExpenditure = int.TryParse(expenditureDayInt, out int numberExpenditure);
+        //                if (successExpenditure)
+        //                {
+        //                    var getString = row[1].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        //                    var decimalParse = getString[0];
+        //                    var decima = decimal.Parse(decimalParse);
+
+        //                    allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
+        //                    {
+        //                        Date = new DateTime(2019, 1, numberExpenditure),
+        //                        Expenditure = decima,
+        //                        ForWhat = row[2].ToString()
+        //                    });
+        //                }
+
+        //                if (row.Count == 6)
+        //                {
+        //                    var incomeDayInt = row[3].ToString();
+        //                    bool successIncome = int.TryParse(incomeDayInt, out int numberIncome);
+        //                    if (successIncome)
+        //                    {
+        //                        string[] getString = row[4].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        //                        string decimalParse = getString[0];
+        //                        bool successDecimalIncome = decimal.TryParse(decimalParse, out decimal decimalParseString);
+        //                        if (successDecimalIncome)
+        //                        {
+        //                            allInfo.GoogleSheetIncomess.Add(new GoogleSheetIncomeViewModel
+        //                            {
+        //                                Date = new DateTime(2019, 1, numberIncome),
+        //                                Income = decimalParseString,
+        //                                FromWhere = row[2].ToString()
+        //                            });
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        var allCategories = 
+        //    var viewModel = new ExpenditureModalBindingModel();
+        //    foreach (var category in allCategories)
+        //    {
+        //        viewModel.CurrentCategories.Add(category.Name);
+        //    }
+
+        //    return viewModel;
+        //}
 
         static void AddRow()
         {

@@ -10,6 +10,8 @@ namespace Financee.Common.ViewModels.GoogleSheets
             GoogleSheetIncomes = new HashSet<GoogleSheetIncomeViewModel>();
         }
 
+        public decimal AvailableMoney { get; set; }
+
         public ICollection<GoogleSheetExpenditureViewModel> GoogleSheetExpenditures { get; set; }
         public ICollection<GoogleSheetIncomeViewModel> GoogleSheetIncomes { get; set; }
     }

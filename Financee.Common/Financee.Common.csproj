@@ -8,4 +8,19 @@
     <ProjectReference Include="..\Financee.Models\Financee.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\..\..\.nuget\packages\google.apis\1.40.1\lib\netstandard2.0\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\..\..\.nuget\packages\google.apis.auth\1.40.1\lib\netstandard2.0\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Sheets.v4">
+      <HintPath>..\..\..\..\.nuget\packages\google.apis.sheets.v4\1.40.1.1610\lib\netstandard2.0\Google.Apis.Sheets.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Financee.Common.ViewModels;
 using Financee.Common.ViewModels.GoogleSheets;
 using Financee.Services.Contracts;
@@ -26,10 +27,9 @@ namespace Financee.Services
 
             return readSheets;
         }
-        static void Init()
+        private void Init()
         {
             GoogleCredential credential;
-            //Reading Credentials File...
             using (var stream = new FileStream("app_client_secret.json", FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream)
@@ -73,7 +73,7 @@ namespace Financee.Services
                             var getString = row[1].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                             var decimalParse = getString[0];
                             var decima = decimal.Parse(decimalParse);
-                            
+
                             allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
                             {
                                 Date = new DateTime(2019, 1, numberExpenditure),
@@ -105,7 +105,27 @@ namespace Financee.Services
                     }
                 }
             }
+            allInfo.AvailableMoney = GetAvailableMoney();
             return allInfo;
+        }
+
+        private decimal GetAvailableMoney()
+        {
+            var range = $"{sheet}!H2";
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                service.Spreadsheets.Values.Get(SpreadsheetId, range);
+            var response = request.Execute();
+            IList<IList<object>> values = response.Values;
+           
+            string[] decimalValue = values[0][0].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+
+            bool successDecimalAvailableMoney = decimal.TryParse(decimalValue[0], out decimal decimalParseString);
+            if (successDecimalAvailableMoney)
+            {
+                return decimalParseString;
+            }
+            return 0;
         }
 
         //public ExpenditureModalBindingModel GetCategoryNames()

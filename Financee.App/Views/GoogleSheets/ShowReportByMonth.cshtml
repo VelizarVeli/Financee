@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Сметки по месец";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<partial name="~/Views/Partials/_Headers.cshtml" />
+<section id="action" class="py-4 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a class="btn btn-primary btn-block" asp-controller="Reports" asp-action="AddExpenditure">
+                    <i class="fa fa-plus"></i> Добави Разход
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-success btn-block" asp-controller="Reports" asp-action="AddIncome">
+                    <i class="fa fa-plus"></i> Добави Приход
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-warning btn-block" asp-controller="Reports" asp-action="AddCategory">
+                    <i class="fa fa-plus"></i> Добави Категория
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<partial name="~/Views/Partials/GoogleSheets/_MonthlyReportFromGoogleSheets.cshtml" , model="Model" />
+
+<footer id="main-footer" class="bg-dark text-white">
+    <partial name="~/Views/Partials/GoogleSheets/_Footers.cshtml" />
+</footer>

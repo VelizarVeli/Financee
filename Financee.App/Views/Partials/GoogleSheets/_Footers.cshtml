@@ -1,0 +1,27 @@
+﻿@using System.Globalization
+@{ var month = new DateTime();}
+
+@if (User.IsInRole("Admin") || User.IsInRole("User"))
+{
+    <div class="container">
+        <div class="row">
+            @for (int i = 0; i < 12; i++)
+            {
+                <div class="col-md-1">
+                    <a class="nav-link text-light" asp-controller="GoogleSheets" asp-action="Monthly" asp-route-id="@month.Month">@month.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</a>
+                </div>
+                month = month.AddMonths(1);
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="lead text-center">Copyright &copy; 2019 Velsys</p>
+            </div>
+        </div>
+    </div>
+}

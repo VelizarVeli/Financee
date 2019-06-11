@@ -21,6 +21,12 @@ namespace Financee.App.Controllers
             return View("GoogleSheets", monthlyReportFromGoogleSheets);
         }
 
+        public IActionResult Monthly(int id)
+        {
+            var viewByMonth =  _googleSheetsService.ViewByMonth(id);
+            return View("ShowReportByMonth", viewByMonth);
+        }
+
         //[Authorize]
         //public IActionResult AddExpenditureInGoogleSheets()
         //{

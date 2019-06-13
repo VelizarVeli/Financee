@@ -10,7 +10,7 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <h4>Разходи за месец @Model.GoogleSheetExpenditures.FirstOrDefault()?.Date.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper()</h4>
+                    <h4>Разходи за месец @Model.Month</h4>
                 </div>
                 <table class="table table-striped table-hover table-sm table-warning">
                     <thead>
@@ -26,7 +26,7 @@
                         @foreach (var expenditure in Model.GoogleSheetExpenditures)
                         {
                             <tr>
-                                <td>@expenditure.Date.DayOfWeek</td>
+                                <td>@expenditure.Weekday</td>
                                 <td class="text-left">@expenditure.Date.ToString("d MMMM", new CultureInfo("bg-BG"))</td>
                                 <td class="text-right mx-auto">@expenditure.Expenditure лв</td>
                                 <td>@expenditure.ForWhat</td>
@@ -91,7 +91,7 @@
                         @foreach (var income in Model.GoogleSheetIncomes)
                         {
                             <tr>
-                                <td scope="row">@income.Date.DayOfWeek</td>
+                                <td scope="row">@income.Weekday</td>
                                 <td>@income.Date.ToString("d MMMM", new CultureInfo("bg-BG"))</td>
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.FromWhere</td>

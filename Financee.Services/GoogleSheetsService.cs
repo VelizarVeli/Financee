@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Threading.Tasks;
-using Financee.Common.ViewModels;
 using Financee.Common.ViewModels.GoogleSheets;
 using Financee.Services.Contracts;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Financee.Services
 {
@@ -76,10 +73,12 @@ namespace Financee.Services
                             var getString = row[1].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                             var decimalParse = getString[0];
                             var decima = decimal.Parse(decimalParse);
+                            var date = new DateTime(2019, DateTime.Now.Month, numberExpenditure);
 
                             allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
                             {
-                                Date = new DateTime(2019, 1, numberExpenditure),
+                                Weekday = WeekDayTranslateBg(date),
+                                Date = date,
                                 Expenditure = decima,
                                 ForWhat = row[2].ToString()
                             });
@@ -96,9 +95,11 @@ namespace Financee.Services
                                 bool successDecimalIncome = decimal.TryParse(decimalParse, out decimal decimalParseString);
                                 if (successDecimalIncome)
                                 {
+                                    var date = new DateTime(2019, DateTime.Now.Month, numberIncome);
                                     allInfo.GoogleSheetIncomes.Add(new GoogleSheetIncomeViewModel
                                     {
-                                        Date = new DateTime(2019, 1, numberIncome),
+                                        Weekday = WeekDayTranslateBg(date),
+                                        Date = date,
                                         Income = decimalParseString,
                                         FromWhere = row[5].ToString()
                                     });
@@ -108,6 +109,8 @@ namespace Financee.Services
                     }
                 }
             }
+
+            allInfo.Month = sheet;
             allInfo.AvailableMoney = GetAvailableMoney();
             return allInfo;
         }
@@ -115,7 +118,7 @@ namespace Financee.Services
         public GoogleSheetsViewModel ViewByMonth(int id)
         {
             sheet = new DateTime().AddMonths(id - 1).ToString("MMMM", new CultureInfo("bg-BG")).ToUpper();
-           
+
             // Specifying Column Range for reading...
             var range = $"{sheet}!B:G";
             SpreadsheetsResource.ValuesResource.GetRequest request =
@@ -147,7 +150,8 @@ namespace Financee.Services
 
                             allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
                             {
-                                Date = new DateTime(2019, 1, numberExpenditure),
+                                Weekday = WeekDayTranslateBg(new DateTime(2019, id, numberExpenditure)),
+                                Date = new DateTime(2019, id, numberExpenditure),
                                 Expenditure = decima,
                                 ForWhat = row[2].ToString()
                             });
@@ -166,7 +170,8 @@ namespace Financee.Services
                                 {
                                     allInfo.GoogleSheetIncomes.Add(new GoogleSheetIncomeViewModel
                                     {
-                                        Date = new DateTime(2019, 1, numberIncome),
+                                        Weekday = WeekDayTranslateBg(new DateTime(2019, id, numberIncome)),
+                                        Date = new DateTime(2019, id, numberIncome),
                                         Income = decimalParseString,
                                         FromWhere = row[5].ToString()
                                     });
@@ -176,6 +181,8 @@ namespace Financee.Services
                     }
                 }
             }
+
+            allInfo.Month = sheet;
             allInfo.AvailableMoney = GetAvailableMoney();
             return allInfo;
         }
@@ -187,7 +194,7 @@ namespace Financee.Services
                 service.Spreadsheets.Values.Get(SpreadsheetId, range);
             var response = request.Execute();
             IList<IList<object>> values = response.Values;
-           
+
             string[] decimalValue = values[0][0].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
 
@@ -197,6 +204,13 @@ namespace Financee.Services
                 return decimalParseString;
             }
             return 0;
+        }
+
+        private string WeekDayTranslateBg(DateTime date)
+        {
+            CultureInfo bulgarian = new CultureInfo("bg-BG");
+            var weekDayInBulgarian = bulgarian.DateTimeFormat.GetDayName(date.DayOfWeek);
+            return weekDayInBulgarian;
         }
 
         //public ExpenditureModalBindingModel GetCategoryNames()

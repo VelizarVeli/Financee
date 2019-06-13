@@ -14,5 +14,6 @@ namespace Financee.Common.ViewModels.GoogleSheets
 
         public ICollection<GoogleSheetExpenditureViewModel> GoogleSheetExpenditures { get; set; }
         public ICollection<GoogleSheetIncomeViewModel> GoogleSheetIncomes { get; set; }
+        public string Month { get; set; }
     }
 }

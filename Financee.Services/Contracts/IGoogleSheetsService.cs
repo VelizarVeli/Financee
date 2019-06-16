@@ -1,4 +1,5 @@
-﻿using Financee.Common.ViewModels.GoogleSheets;
+﻿using Financee.Common.ViewModels;
+using Financee.Common.ViewModels.GoogleSheets;
 
 namespace Financee.Services.Contracts
 {
@@ -6,5 +7,6 @@ namespace Financee.Services.Contracts
     {
         GoogleSheetsViewModel MonthlyReportFromGoogleSheets();
         GoogleSheetsViewModel ViewByMonth(int id);
+        void AddExpenditureInGoogleSheets(ExpenditureModalBindingModel model);
     }
 }

@@ -23,23 +23,23 @@ namespace Financee.App.Controllers
 
         public IActionResult Monthly(int id)
         {
-            var viewByMonth =  _googleSheetsService.ViewByMonth(id);
+            var viewByMonth = _googleSheetsService.ViewByMonth(id);
             return View("ShowReportByMonth", viewByMonth);
         }
 
-        //[Authorize]
-        //public IActionResult AddExpenditureInGoogleSheets()
-        //{
-        //    var viewModel = _googleSheetsService.GetCategoryNames();
-        //    return View("AddExpenditureInGoogleSheets", viewModel);
-        //}
+        [Authorize]
+        public IActionResult AddExpenditureInGoogleSheets()
+        {
+            //var viewModel = _googleSheetsService.GetCategoryNames();
+            return View("AddExpenditureInGoogleSheets"/*, viewModel*/);
+        }
 
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> AddExpenditureInGoogleSheetsPost(ExpenditureModalBindingModel model)
-        //{
-        //    await _googleSheetsService.AddExpenditureInGoogleSheets(model, _user.GetUserId(User));
-        //    return RedirectToAction("Index", "Home");
-        //}
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddExpenditureInGoogleSheetsPost(ExpenditureModalBindingModel model)
+        {
+            _googleSheetsService.AddExpenditureInGoogleSheets(model);
+            return RedirectToAction("GoogleSheets");
+        }
     }
 }

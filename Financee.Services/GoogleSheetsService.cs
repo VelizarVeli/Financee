@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Financee.Common.ViewModels;
 using Financee.Common.ViewModels.GoogleSheets;
 using Financee.Services.Contracts;
 using Google.Apis.Auth.OAuth2;
@@ -213,85 +214,20 @@ namespace Financee.Services
             return weekDayInBulgarian;
         }
 
-        //public ExpenditureModalBindingModel GetCategoryNames()
-        //{
-        //    Init();
-        //    var range = $"{sheet}!B:G";
-        //    SpreadsheetsResource.ValuesResource.GetRequest request =
-        //        service.Spreadsheets.Values.Get(SpreadsheetId, range);
-        //    // Ecexuting Read Operation...
-        //    var response = request.Execute();
-        //    // Getting all records from Column B to G...
-        //    IList<IList<object>> values = response.Values;
-        //    var allInfo = new GoogleSheetsViewModel();
-        //    if (values != null && values.Count > 0)
-        //    {
-        //        foreach (var row in values)
-        //        {
-        //            if (row.Count == 3 || row.Count == 6 || row.Count == 4)
-        //            {
-        //                var expenditureDayInt = row[0].ToString();
-
-        //                bool successExpenditure = int.TryParse(expenditureDayInt, out int numberExpenditure);
-        //                if (successExpenditure)
-        //                {
-        //                    var getString = row[1].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        //                    var decimalParse = getString[0];
-        //                    var decima = decimal.Parse(decimalParse);
-
-        //                    allInfo.GoogleSheetExpenditures.Add(new GoogleSheetExpenditureViewModel
-        //                    {
-        //                        Date = new DateTime(2019, 1, numberExpenditure),
-        //                        Expenditure = decima,
-        //                        ForWhat = row[2].ToString()
-        //                    });
-        //                }
-
-        //                if (row.Count == 6)
-        //                {
-        //                    var incomeDayInt = row[3].ToString();
-        //                    bool successIncome = int.TryParse(incomeDayInt, out int numberIncome);
-        //                    if (successIncome)
-        //                    {
-        //                        string[] getString = row[4].ToString().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        //                        string decimalParse = getString[0];
-        //                        bool successDecimalIncome = decimal.TryParse(decimalParse, out decimal decimalParseString);
-        //                        if (successDecimalIncome)
-        //                        {
-        //                            allInfo.GoogleSheetIncomess.Add(new GoogleSheetIncomeViewModel
-        //                            {
-        //                                Date = new DateTime(2019, 1, numberIncome),
-        //                                Income = decimalParseString,
-        //                                FromWhere = row[2].ToString()
-        //                            });
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        var allCategories = 
-        //    var viewModel = new ExpenditureModalBindingModel();
-        //    foreach (var category in allCategories)
-        //    {
-        //        viewModel.CurrentCategories.Add(category.Name);
-        //    }
-
-        //    return viewModel;
-        //}
-
-        //static void AddRow()
-        //{
-        //    // Specifying Column Range for reading...
-        //    var range = $"{sheet}!A:E";
-        //    var valueRange = new ValueRange();
-        //    // Data for another Student...
-        //    var oblist = new List<object>() { "Gurgulitsa", "800", "770", "602", "982" };
-        //    valueRange.Values = new List<IList<object>> { oblist };
-        //    // Append the above record...
-        //    var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, range);
-        //    appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-        //    var appendReponse = appendRequest.Execute();
-        //}
+        public void AddExpenditureInGoogleSheets(ExpenditureModalBindingModel model)
+        {
+            sheet = DateTime.Now.ToString("MMMM", new CultureInfo("bg-BG")).ToUpper();
+            // Specifying Column Range for reading...
+            var range = $"{sheet}!A:C";
+            var valueRange = new ValueRange();
+            // Data for another Student...
+            var oblist = new List<object> {model.Date.Day.ToString(), model.Expenditure.ToString(CultureInfo.InvariantCulture), model.ForWhat };
+            valueRange.Values = new List<IList<object>> { oblist };
+            // Append the above record...
+            var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, range);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendReponse = appendRequest.Execute();
+        }
 
         //static void UpdateCell()
         //{

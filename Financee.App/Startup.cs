@@ -36,13 +36,7 @@ namespace Financee.App
             services.AddDbContext<FinanceeDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<FinanceeUser, IdentityRole>(identityOptions =>
-            {
-                identityOptions.Password.RequireDigit = false;
-                identityOptions.Password.RequireLowercase = false;
-                identityOptions.Password.RequireNonAlphanumeric = false;
-                identityOptions.Password.RequireUppercase = false;
-            })
+            services.AddIdentity<FinanceeUser, IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<FinanceeDbContext>()
                 .AddDefaultTokenProviders();

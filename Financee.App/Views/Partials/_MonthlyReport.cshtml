@@ -2,7 +2,11 @@
     ViewData["Title"] = "Месечен отчет";
 }
 @using System.Globalization
+@using Financee.Models
+@using Microsoft.AspNetCore.Identity
 @model Financee.Common.ViewModels.MoneyFlowViewModel
+@inject SignInManager<FinanceeUser> SignInManager
+
 @{ decimal sumExpenditure = 0;}
 @{ decimal sumIncome = 0;}
 <section id="posts">
@@ -31,8 +35,8 @@
                                 <td class="text-right mx-auto">@expenditure.Expenditure лв</td>
                                 <td>@expenditure.WhatIsmadeFor</td>
                                 <td>
-                                    
-                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" asp-route-id="@expenditure.Id" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+
+                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" asp-route-id="@expenditure.Id" class="btn btn-secondary"><i class="fa fa-trash"> Изтрий</i></a>
                                 </td>
                             </tr>
                             sumExpenditure += expenditure.Expenditure;
@@ -42,7 +46,7 @@
             </div>
             <hr />
             <div>
-                <h1 class="bg-primary text-white text-center">Общо разходи за месеца:<br/> @sumExpenditure лв</h1>
+                <h1 class="bg-primary text-white text-center">Общо разходи за месеца:<br /> @sumExpenditure лв</h1>
             </div>
         </div>
         <div class="col-md-2">
@@ -61,16 +65,18 @@
                     <a class="btn btn-outline-light btn-sm" asp-controller="Reports" asp-action="MonthlyBudget">Виж</a>
                 </div>
             </div>
-
-            <div class="card text-center bg-warning text-white mb-3">
-                <div class="card-body">
-                    <h3>Users</h3>
-                    <h1 class="display-4">
-                        <i class="fa fa-users"></i> 2
-                    </h1>
-                    <a class="btn btn-outline-light btn-sm" asp-controller="GoogleSheets" asp-action="GoogleSheets">Google Sheets</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="card text-center bg-warning text-white mb-3">
+                    <div class="card-body">
+                        <h3>Users</h3>
+                        <h1 class="display-4">
+                            <i class="fa fa-users"></i> 2
+                        </h1>
+                        <a class="btn btn-outline-light btn-sm" asp-controller="GoogleSheets" asp-action="GoogleSheets">Google Sheets</a>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
         <div class="col-md-5">
             <div class="card">
@@ -96,7 +102,7 @@
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.WhereFrom</td>
                                 <td>
-                                    <a asp-controller="Reports" asp-action="DeleteIncome" asp-route-id="@income.Id" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+                                    <a asp-controller="Reports" asp-action="DeleteIncome" asp-route-id="@income.Id" class="btn btn-secondary"><i class="fa fa-trash"> Изтрий</i></a>
                                 </td>
                             </tr>
                             sumIncome += income.Income;

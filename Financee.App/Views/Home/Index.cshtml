@@ -11,7 +11,6 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <partial name="~/Views/Partials/_Headers.cshtml" />
-    <!-- ACTIONS -->
     <section id="action" class="py-4 mb-4 bg-light">
         <div class="container">
             <div class="row">
@@ -39,7 +38,6 @@
         <partial name="~/Views/Partials/_Footers.cshtml"/>
     </footer>
 
-    <!-- USER MODAL -->
     <div class="modal fade" id="addUserModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -86,7 +84,7 @@
 else
 {
     <div class="jumbotron mt-3 py-4 mb-4 bg-dark">
-        <h1 class="text-white">Добре дошли във Financee Accounting Services.</h1>
+        <h1 class="text-white">Добре дошли във Финансово-счетоводни услуги.</h1>
         <hr class="bg-white" />
         <h3 class="text-white"><a asp-area="Identity" asp-page="/Account/Login">Влез</a> ако имаш акаунт.</h3>
         <h3 class="text-white"><a asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a> ако нямаш.</h3>

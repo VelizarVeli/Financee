@@ -32,7 +32,7 @@
                                 <td>@expenditure.ForWhat</td>
                                 <td>
                                     
-                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+                                    <a asp-controller="Reports" asp-action="DeleteExpenditure" class="btn btn-secondary"><i class="fa fa-trash">Изтрий</i></a>
                                 </td>
                             </tr>
                             sumExpenditure += expenditure.Expenditure;
@@ -96,7 +96,7 @@
                                 <td class="text-right">@income.Income лв</td>
                                 <td>@income.FromWhere</td>
                                 <td>
-                                    <a asp-controller="Reports" asp-action="DeleteIncome" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
+                                    <a asp-controller="Reports" asp-action="DeleteIncome" class="btn btn-secondary"><i class="fa fa-trash">Изтрий</i></a>
                                 </td>
                             </tr>
                             sumIncome += income.Income;
